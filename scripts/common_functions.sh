@@ -164,7 +164,7 @@ check_suspended_processes() {
 #   Suspend processes known to cause problems during deployments.
 #   The API call is idempotent so it doesn't matter if any were previously suspended.
 suspend_processes() {
-  local -a processes=(AZRebalance AlarmNotification ScheduledActions ReplaceUnhealthy Launch)
+  local -a processes=(AZRebalance AlarmNotification ScheduledActions ReplaceUnhealthy)
 
   msg "Suspending ${processes[*]} processes"
   $AWS_CLI autoscaling suspend-processes \
@@ -179,7 +179,7 @@ suspend_processes() {
 #
 #   Resume processes suspended, except for the one suspended before deployment.
 resume_processes() {
-  local -a processes=(AZRebalance AlarmNotification ScheduledActions ReplaceUnhealthy Launch)
+  local -a processes=(AZRebalance AlarmNotification ScheduledActions ReplaceUnhealthy)
   local -a to_resume
 
   for p in ${processes[@]}; do
